@@ -21,7 +21,10 @@ client = MongoClient(url)
 
 db = client.songs
 db.songs.delete_many({})
+print(songs_list)
 db.songs.insert_many(songs_list)
+
+print(f"count: {db.songs.count_documents()}")
 
 
 def parse_json(data):
