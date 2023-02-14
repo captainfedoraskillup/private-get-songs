@@ -11,8 +11,14 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 json_url = os.path.join(SITE_ROOT, "data", "songs.json")
 songs_list: list = json.load(open(json_url))
 
-client = MongoClient(
-    f"mongodb://{app.config['MONGO_USERNAME']}:{app.config['MONGO_PASSWORD']}@localhost")
+# client = MongoClient(
+#     f"mongodb://{app.config['MONGO_USERNAME']}:{app.config['MONGO_PASSWORD']}@localhost")
+mongodb_service = os.environ.get('MONGODB_SERVICE')
+print(f'The value of MY_VAR is: {mongodb_service}')
+url = f"mongodb://{mongodb_service}"
+print(f"connecting to url: {url}")
+client = MongoClient(url)
+
 db = client.songs
 db.songs.delete_many({})
 db.songs.insert_many(songs_list)
