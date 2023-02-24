@@ -44,7 +44,6 @@ db = client.songs
 db.songs.drop()
 db.songs.insert_many(songs_list)
 
-
 def parse_json(data):
     return json.loads(json_util.dumps(data))
 
